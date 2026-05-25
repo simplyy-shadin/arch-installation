@@ -193,4 +193,225 @@ reboot
 
 ---
 
+---
+
+## 6. No Sound After Install - PipeWire Not Working
+
+**Problem:** Audio is completely silent after install even though speakers/headphones are connected.
+
+**Cause:** PipeWire or WirePlumber service is not running.
+
+**Fix:**
+
+### Step 1 - Install audio packages if missing
+
+```bash
+sudo pacman -S pipewire pipewire-alsa pipewire-pulse pipewire-jack wireplumber
+```
+
+### Step 2 - Enable and start the services
+
+```bash
+systemctl --user enable pipewire pipewire-pulse wireplumber
+systemctl --user start pipewire pipewire-pulse wireplumber
+```
+
+### Step 3 - Check status
+
+```bash
+systemctl --user status pipewire
+```
+
+### Step 4 - Reboot
+
+```bash
+reboot
+```
+
+> If sound still doesn't work, try `pavucontrol` to check if output device is muted or set to wrong sink.
+
+---
+
+## 7. Pacman Keyring Errors - Invalid Signature
+
+**Problem:** Packages fail to install with errors like:
+
+```
+error: key "XXXXXXXXXXXXXXXX" could not be looked up remotely
+error: required key missing from keyring
+error: failed to commit transaction (invalid or corrupted package (PGP signature))
+```
+
+**Cause:** The pacman keyring is outdated or corrupted.
+
+**Fix:**
+
+```bash
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+sudo pacman -Sy archlinux-keyring
+sudo pacman -Syu
+```
+
+> If it still fails, remove the keyring and reinitialize:
+
+```bash
+sudo rm -rf /etc/pacman.d/gnupg
+sudo pacman-key --init
+sudo pacman-key --populate archlinux
+```
+
+---
+
+## 8. Black Screen After Login - SDDM Loads but Desktop Doesn't Start
+
+**Problem:** SDDM login screen appears, you enter credentials, then you get a black screen with a cursor.
+
+**Cause:** Usually a missing display server, wrong session set in SDDM, or GPU driver issue.
+
+**Fix - Check which session is selected:**
+
+At SDDM login screen, look for a session selector (usually bottom left). Make sure it says **Plasma** or **Hyprland** - not a blank or wrong entry.
+
+**Fix - Reinstall plasma/hyprland:**
+
+```bash
+sudo pacman -S plasma-desktop
+# or for Hyprland
+sudo pacman -S hyprland
+```
+
+**Fix - Check Xorg/Wayland logs:**
+
+```bash
+journalctl -b -p err
+```
+
+**Fix - If NVIDIA GPU:**
+
+```bash
+sudo pacman -S nvidia nvidia-utils
+sudo mkinitcpio -P
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+reboot
+```
+
+---
+
+## 9. WiFi Not Connecting After Reboot - NetworkManager Issue
+
+**Problem:** WiFi worked during install but stops working after reboot into the installed system.
+
+**Cause:** NetworkManager service is not enabled or iwd is conflicting with it.
+
+**Fix - Enable NetworkManager:**
+
+```bash
+sudo systemctl enable --now NetworkManager
+```
+
+**Fix - Check status:**
+
+```bash
+sudo systemctl status NetworkManager
+```
+
+**Fix - If using iwd alongside NetworkManager (conflict):**
+
+```bash
+sudo systemctl disable iwd
+sudo systemctl restart NetworkManager
+```
+
+**Fix - Connect manually via nmcli:**
+
+```bash
+nmcli device wifi list
+nmcli device wifi connect "YourWiFiName" password "YourPassword"
+```
+
+---
+
+## 10. sudo: Command Not Found for Your User
+
+**Problem:** Running `sudo` gives:
+
+```
+shadin is not in the sudoers file. This incident will be reported.
+```
+
+**Cause:** Your user was not added to the `wheel` group or visudo was not configured.
+
+**Fix - Switch to root and fix it:**
+
+```bash
+su -
+EDITOR=nano visudo
+```
+
+Uncomment this line:
+```
+%wheel ALL=(ALL:ALL) ALL
+```
+
+Then add your user to the wheel group:
+```bash
+usermod -aG wheel shadin
+```
+
+Log out and back in - sudo will now work.
+
+---
+
+## 11. pacman -Syu Fails - Database Locked
+
+**Problem:** Running `sudo pacman -Syu` shows:
+
+```
+error: failed to init transaction (unable to lock database)
+error: could you be running two instances of pacman?
+```
+
+**Cause:** A previous pacman process crashed and left a lock file behind.
+
+**Fix:**
+
+```bash
+sudo rm /var/lib/pacman/db.lck
+sudo pacman -Syu
+```
+
+> Only do this if you are sure no other pacman process is running.
+
+---
+
+## 12. Clock is Wrong - Time Sync Issue
+
+**Problem:** System clock shows wrong time after install or after switching between Windows and Arch (dual boot).
+
+**Fix - Enable NTP time sync:**
+
+```bash
+sudo timedatectl set-ntp true
+timedatectl status
+```
+
+**Fix - If dual booting with Windows (RTC clock conflict):**
+
+Windows uses local time, Arch uses UTC by default. Fix by making Arch use local time:
+
+```bash
+sudo timedatectl set-local-rtc 1 --adjust-system-clock
+```
+
+**Fix - Set correct timezone:**
+
+```bash
+sudo timedatectl set-timezone Asia/Kolkata
+```
+
+---
+
+[Back to Main Guide](./README.md)
+
 [Back to Main Guide](./README.md)
