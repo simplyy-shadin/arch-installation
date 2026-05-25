@@ -11,6 +11,13 @@
 3. [Creating Bootable USB with PowerISO](#3-creating-bootable-usb-with-poweriso)
 4. [Update Errors - Mirror Too Slow or SSL Errors](#4-update-errors---mirror-too-slow-or-ssl-errors)
 5. [Boot Partition Full - Not Enough Free Disk Space](#5-boot-partition-full---not-enough-free-disk-space)
+6. [No Sound After Install - PipeWire Not Working](#6-no-sound-after-install---pipewire-not-working)
+7. [Pacman Keyring Errors - Invalid Signature](#7-pacman-keyring-errors---invalid-signature)
+8. [Black Screen After Login - SDDM Loads but Desktop Doesn't Start](#8-black-screen-after-login---sddm-loads-but-desktop-doesnt-start)
+9. [WiFi Not Connecting After Reboot - NetworkManager Issue](#9-wifi-not-connecting-after-reboot---networkmanager-issue)
+10. [sudo: Command Not Found for Your User](#10-sudo-command-not-found-for-your-user)
+11. [pacman -Syu Fails - Database Locked](#11-pacman--syu-fails---database-locked)
+12. [Clock is Wrong - Time Sync Issue](#12-clock-is-wrong---time-sync-issue)
 
 ---
 
