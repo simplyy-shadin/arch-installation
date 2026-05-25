@@ -11,6 +11,8 @@
 
 ## Table of Contents
 
+### Installation Steps
+
 1. [Pre-Boot Setup](./01-pre-boot.md)
 2. [Connect to Internet](./02-connect-internet.md)
 3. [Disk Partitioning](./03-disk-partition.md)
@@ -20,15 +22,14 @@
 7. [Bootloader - GRUB](./07-bootloader.md)
 8. [Services and Post-Install](./08-services-postinstall.md)
 
-## Package Lists
+### Package Lists
 
 - [KDE Plasma Packages](./packages/plasma-packages.md)
 - [Hyprland Packages](./packages/hyprland-packages.md)
 
-## Extras
+### Issues and Fixes
 
-- [Dual Boot with Windows](./extras/dual-boot.md)
-- [AMD Brightness Fix](./extras/brightness-fix.md)
+- [Arch Linux Issues and Fixes](./ARCH-LINUX-ISSUES.md)
 
 ---
 
@@ -75,13 +76,24 @@
 - AUR helper setup using **paru**
 - Fish shell with greeting disabled
 - Git global config
-- Dual boot with Windows via os-prober
 - AMD backlight fix via GRUB params
 
 ---
 
 ## Author
 
-Made by [Shadin](https://github.com/simplyy-shadin)
+Made by **Shadin**
+
+### Connect with the Author
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/shadin-k-v-cybersecurity)
+[![TryHackMe](https://img.shields.io/badge/TryHackMe-212C42?style=for-the-badge&logo=tryhackme&logoColor=white)](https://tryhackme.com/p/simplyy.hacker)
+[![Medium](https://img.shields.io/badge/Medium-000000?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@shdnkval)
+
+- LinkedIn - https://www.linkedin.com/in/shadin-k-v-cybersecurity
+- TryHackMe - https://tryhackme.com/p/simplyy.hacker
+- Medium - https://medium.com/@shdnkval
+
+---
 
 > If this guide helped you, drop a star - it means a lot!
